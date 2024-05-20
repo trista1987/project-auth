@@ -1,0 +1,77 @@
+/* General styles for the form to center everything */
+body {
+  background-color: #e5e5e5;
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+}
+
+form {
+  align-items: center;
+  padding: 20px;
+  margin: auto;
+  max-width: 300px;
+}
+
+/* Styles for the icon image */
+.login-icon {
+  width: 100px;
+  margin-bottom: 20px;
+}
+
+/* Styles for headers inside the form */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Styles for form input containers */
+div {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Styles for labels */
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+/* Styles for input fields to expand to full width of their container */
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Styles for the submit button */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffd935;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+/* Additional styling for hover effect on button */
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Centering paragraph below the form */
+.login-form p {
+  text-align: center;
+  margin-top: 20px;
+}
+
+p {
+  text-align: center;
+}
+
+.login-form {
+  margin-top: 30px;
+}
