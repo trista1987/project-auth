@@ -1,12 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "./Pages/Login";
+import { Signup } from "./Pages/Signup";
 import { NavBar } from "./Pages/NavBar";
-import { BrowserRouter } from "react-router-dom";
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <NavBar />
-      <Login />
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 };

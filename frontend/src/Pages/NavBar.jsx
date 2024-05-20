@@ -6,7 +6,7 @@ export const NavBar = () => {
       <div className="navbar-logo">Authentication</div>
       <ul className="nav-links">
         <li>
-          <a href="/">Home</a>
+          <a href="/login">Home</a>
         </li>
         <li>
           <a href="/signup">Sign up</a>
