@@ -14,8 +14,10 @@ form {
 
 /* Styles for the icon image */
 .login-icon {
+  display: flex; 
+  justify-content: center; 
   width: 100px;
-  margin-bottom: 20px;
+  margin: 0 auto 30px; 
 }
 
 /* Styles for headers inside the form */
@@ -55,11 +57,12 @@ button {
   border-radius: 5px;
   cursor: pointer;
   border-radius: 30px;
+  font-size: 15px;
 }
 
 /* Additional styling for hover effect on button */
 button:hover {
-  background-color: #0056b3;
+  background-color: #fe9c80;
 }
 
 /* Centering paragraph below the form */

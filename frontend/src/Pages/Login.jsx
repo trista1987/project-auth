@@ -1,6 +1,5 @@
 import "./Login.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
@@ -28,10 +27,9 @@ export const Login = () => {
 
   return (
     <>
-      <NavBar />
-      <form onSubmit={handleSubmit} className="login-form flex flex-col">
+      <form onSubmit={handleSubmit} className="login-form">
         <img src="/public/login.png" className="login-icon" />
-        <h2>Sign up / Login</h2>
+        <h2>Login</h2>
         <div>
           <label htmlFor="email">Account：</label>
           <input
