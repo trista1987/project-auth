@@ -6,29 +6,33 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userInfo = {
-      username: "kminchelle",
-      password: "0lelplR",
+      username: email, 
+      password: password,
     };
-    const { data } = await axios.post(
-      "https://dummyjson.com/auth/login",
-      userInfo
-    );
-    localStorage.setItem("Net-Token", data.token);
-    navigate("/");
+
+    // Placeholder for actual login via API
+    console.log("Login attempt:", userInfo);
+    // Assume login is successful and we get a token back
+    const token = "your-token-here"; // Replace with actual token from your API
+    localStorage.setItem("Net-Token", token);
+    navigate("/"); // Navigate to homepage or dashboard as needed
   };
+
   useEffect(() => {
+    // Redirect if user is already logged in
     if (localStorage.getItem("Net-Token")) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]); // Added dependency to useEffect
 
   return (
     <>
       <form onSubmit={handleSubmit} className="login-form">
-        <img src="/public/login.png" className="login-icon" />
+        <img src="/public/login.png" className="login-icon" alt="Login Icon" />
         <h2>Login</h2>
         <div>
           <label htmlFor="email">Account：</label>
@@ -52,7 +56,9 @@ export const Login = () => {
         </div>
         <button type="submit">Submit</button>
       </form>
-      <p>Haven't signed up yet？Click here to sign up</p>
+      <p>
+        Haven't signed up yet？Click <a href="/signup">here</a> to sign up
+      </p>
     </>
   );
 };

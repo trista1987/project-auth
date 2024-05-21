@@ -45,7 +45,7 @@ export const Signup = () => {
     <>
       <form onSubmit={handleSubmit} className="signup-wrapper">
         <img src="/public/signup.png" className="signup-icon" alt="Sign Up" />
-        <h2>Register</h2>
+        <h2>Sign Up</h2>
         <div>
           <label htmlFor="name">Name：</label>
           <input
