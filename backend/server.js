@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt"
+import crypto from "crypto"
 // import expressListEndpoints from 'express-list-endpoints';
 // import dotenv from "dotenv"
 
@@ -27,11 +28,26 @@ const userSchema = new Schema ({
   }, 
   accessToken: {
     type: String,
-    default: () => bcrypt.genSaltSync()
+    default: () => crypto.randomBytes(128).toString("hex")
   }
 })
 
 const User = model('User', userSchema)
+
+const authenticateUser = async (req, res, next) => {
+  const user = await User.findOne({
+    accessToken: req.header("Authorization")
+  })
+
+  if (user) {
+    req.user = user
+    next()
+  } else {
+    res.status (401).json({
+      loggedOut: true
+    })
+  }
+}
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -52,15 +68,24 @@ app.get('/secrets', (req, res)=> {
   res.json({secret: 'This is a super secret message.'})
 })
 
-app.post('/users', async (req, res) => {
-  const {name, email, password} = req.body
+app.post('/users', (req, res) => {
+  
   try{
-    
-    const user = await new User ({name, email, passwor:bcrypt.genSaltSync(password)}).save()
+    const {name, email, password} = req.body
+    const salt = bcrypt.genSaltSync()
+    const user = new User ({name, email, passwor:bcrypt.hashSync(password, salt)})
+    user.save()
    
-    res.status(201).json({id: user._id, accessToken: user.accessToken})
+    res.status(201).json({
+      success: true,
+      message: "User created",
+      id: user._id, 
+      accessToken: user.accessToken})
   } catch (err){
-    res.status(400).json({message: 'Could not creat user', errors: err.errors})
+    res.status(400).json({
+      success: false,
+      message: 'Could not creat user', 
+      errors: err.errors})
   }
 })
 
