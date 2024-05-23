@@ -27,11 +27,27 @@ export const Signup = () => {
       password: password,
     };
 
-    // Here you can log the user object to see the data
-    console.log("User to register:", newUser);
+    try {
+      //Replace api link
+      const response = await fetch("https://your-api-url.com/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
 
-    // Placeholder for future API integration
-    // navigate("/login"); // Redirect to login page after registration placeholder
+      if (!response.ok) {
+        throw new Error("Failed to register");
+      }
+
+      const data = await response.json(); 
+      console.log("Registration successful:", data);
+      navigate("/login"); // Redirect to login page after successful registration
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Registration failed: " + error.message);
+    }
   };
 
   useEffect(() => {
@@ -39,7 +55,7 @@ export const Signup = () => {
     if (localStorage.getItem("Net-Token")) {
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>

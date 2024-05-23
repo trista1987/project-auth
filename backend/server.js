@@ -78,7 +78,20 @@ app.post("/login", async (req, res)=> {
 })
 
 // Authorize
-const 
+const authUser = async (req, res, next) => {
+  const user = await User.findOne({
+    token: req.header("Authorization")
+  })
+
+  if(user) {
+    req.user = user
+    next ()
+  } else {
+    res.status(401).json({
+      message: "failed."
+    })
+  }
+}
 
 
 // Start the server
