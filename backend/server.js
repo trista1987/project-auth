@@ -48,13 +48,14 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
+// Register new user
 app.post("/register", (req, res) => {
   try{
     const {name, phone, password} = req.body
     const salt = bcrypt.genSaltSync()
     const user = new User ({name, phone, password: bcrypt.hashSync(password, salt)}).save()
 
-    res.status(201).json(user)
+    res.status(201).send(user)
   } catch(err) {
     res.status(400).json({
       message: 'Could not create user',
@@ -62,7 +63,28 @@ app.post("/register", (req, res) => {
     })
   }
 })
+
+// Login
+app.post("/login", async (req, res)=> {
+  const matchUser = await User.findOne({
+    name: req.body.name
+  })
+
+  if(matchUser && bcrypt.compareSync(req.body.password, matchUser.password)){
+    res.json({matchUserId: matchUser._id})
+  } else {
+    res.json({message: "User not found."})
+  }
+})
+
+// Authorize
+const 
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+
+
+

@@ -7,27 +7,41 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const userInfo = {
-      username: email, 
-      password: password,
-    };
+ const handleSubmit = async (event) => {
+   event.preventDefault();
+   const userInfo = {
+     email: email, 
+     password: password,
+   };
 
-    // Placeholder for actual login via API
-    console.log("Login attempt:", userInfo);
-    // Assume login is successful and we get a token back
-    const token = "your-token-here"; // Replace with actual token from your API
-    localStorage.setItem("Net-Token", token);
-    navigate("/"); // Navigate to homepage or dashboard as needed
-  };
+   try {
+     // Replace API endpoint
+     const response = await fetch("https://your-api-url.com/login", {
+       method: "POST",
+       headers: {
+         "Content-Type": "application/json",
+       },
+       body: JSON.stringify(userInfo),
+     });
 
-  useEffect(() => {
-    // Redirect if user is already logged in
-    if (localStorage.getItem("Net-Token")) {
-      navigate("/");
-    }
-  }, [navigate]);
+     if (!response.ok) {
+       throw new Error("Failed to login");
+     }
+
+     const data = await response.json(); 
+     localStorage.setItem("Net-Token", data.token); 
+     navigate("/"); 
+   } catch (error) {
+     console.error("Login error:", error.message);
+     alert("Login failed: " + error.message);
+   }
+ };
+
+ useEffect(() => {
+   if (localStorage.getItem("Net-Token")) {
+     navigate("/");
+   }
+ }, [navigate]);
 
   return (
     <>
