@@ -71,7 +71,7 @@ export const Login = () => {
         <button type="submit">Submit</button>
       </form>
       <p>
-        Haven't signed up yet？Click <a href="/signup">here</a> to sign up
+        Have not signed up yet？Click <a href="/signup">here</a> to sign up
       </p>
     </>
   );
