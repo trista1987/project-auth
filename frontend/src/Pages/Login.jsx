@@ -27,7 +27,7 @@ export const Login = () => {
     if (localStorage.getItem("Net-Token")) {
       navigate("/");
     }
-  }, [navigate]); // Added dependency to useEffect
+  }, [navigate]);
 
   return (
     <>
