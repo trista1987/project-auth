@@ -21,7 +21,7 @@ export const Signup = () => {
 
     try {
       const response = await fetch(
-        "https://project-auth-5en1.onrender.com/register",
+        "https://project-auth-3-ueps.onrender.com/register",
         {
           method: "POST",
           headers: {

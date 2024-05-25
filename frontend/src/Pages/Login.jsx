@@ -16,7 +16,7 @@ export const Login = () => {
 
     try {
       const response = await fetch(
-        "https://project-auth-5en1.onrender.com/login",
+        "https://project-auth-3-ueps.onrender.com/login",
         {
           method: "POST",
           headers: {
