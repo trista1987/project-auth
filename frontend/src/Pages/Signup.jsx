@@ -53,12 +53,12 @@ export const Signup = () => {
     }
   };
 
-  useEffect(() => {
-    // Redirect if user is already logged in
-    if (localStorage.getItem("Net-Token")) {
-      navigate("/");
-    }
-  }, [navigate]);
+useEffect(() => {
+  const token = localStorage.getItem("Net-Token");
+  if (token) {
+    navigate("/");
+  }
+}, [navigate]);
 
   return (
     <>
