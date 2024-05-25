@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import mongoose, { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
+import expressListEndpoints from "express-list-endpoints"
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
 mongoose.connect(mongoUrl);
@@ -44,8 +45,9 @@ app.use(express.json());
 
 // Start defining your routes here
 app.get("/", (req, res) => {
-  res.send("Hello Technigo!");
-});
+  const endpoints = expressListEndpoints(app);
+  res.json(endpoints)
+})
 
 
 // Register new user
@@ -79,7 +81,7 @@ app.post("/login", async (req, res) => {
   }
 });
 // Authorize
-const authUser = async (req, res, next) => {
+const authenticateUser = async (req, res, next) => {
   const user = await User.findOne({
     token: req.header("Authorization"),
   });
@@ -92,7 +94,7 @@ const authUser = async (req, res, next) => {
     });
   }
 };
-app.get("/secrets", authUser);
+app.get("/secrets", authenticateUser);
 app.get("/secrets", (req, res) => {
   res.json({
     secret: "This is secrets.",
