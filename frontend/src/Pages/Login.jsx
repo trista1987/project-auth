@@ -7,45 +7,44 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
- const handleSubmit = async (event) => {
-   event.preventDefault();
-   const userInfo = {
-     email: email, 
-     password: password,
-   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const userInfo = {
+      email,
+      password,
+    };
 
-   try {
-     // Replace API endpoint
-     const response = await fetch(
-       "https://project-auth-5en1.onrender.com/login",
-       {
-         method: "POST",
-         headers: {
-           "Content-Type": "application/json",
-         },
-         body: JSON.stringify(userInfo),
-       }
-     );
+    try {
+      const response = await fetch(
+        "https://project-auth-5en1.onrender.com/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userInfo),
+        }
+      );
 
-     if (!response.ok) {
-       throw new Error("Failed to login");
-     }
+      const data = await response.json();
 
-     const data = await response.json(); 
-     localStorage.setItem("Net-Token", data.token); 
-     navigate("/"); 
-   } catch (error) {
-     console.error("Login error:", error.message);
-     alert("Login failed: " + error.message);
-   }
- };
+      if (!response.ok) {
+        throw new Error(data.message || "An error occurred while logging in.");
+      }
 
-useEffect(() => {
-  if (localStorage.getItem("Net-Token")) {
-    navigate("/");
-  }
-}, [navigate]);
+      localStorage.setItem("Net-Token", data.token);
+      navigate("/");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert(error.message); // Displays the error message from the backend
+    }
+  };
 
+  useEffect(() => {
+    if (localStorage.getItem("Net-Token")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <>
