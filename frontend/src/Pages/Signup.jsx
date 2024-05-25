@@ -105,7 +105,16 @@ export const Signup = () => {
             required
           />
         </div>
-
+        <div>
+          <label htmlFor="confirm-password">Re-enter Password：</label>
+          <input
+            type="password"
+            id="confirm-password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </div>
         <button type="submit">Register</button>
       </form>
       <p>
