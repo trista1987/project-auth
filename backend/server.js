@@ -18,6 +18,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
   token: {
     type: String,
     default: () => bcrypt.genSaltSync(),
@@ -53,11 +58,12 @@ app.get("/", (req, res) => {
 // Register new user
 app.post("/register", (req, res) => {
   try {
-    const { name, phone, password } = req.body;
+    const { name, phone, email, password } = req.body;
     const salt = bcrypt.genSaltSync();
     const user = new User({
       name,
       phone,
+      email,
       password: bcrypt.hashSync(password, salt),
     });
     user.save();
@@ -72,7 +78,7 @@ app.post("/register", (req, res) => {
 // Login
 app.post("/login", async (req, res) => {
   const matchUser = await User.findOne({
-    name: req.body.name,
+    email: req.body.email,
   });
   if (matchUser && bcrypt.compareSync(req.body.password, matchUser.password)) {
     res.json({ matchUserId: matchUser._id });
