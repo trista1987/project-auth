@@ -4,7 +4,7 @@ import mongoose, { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
 import expressListEndpoints from "express-list-endpoints"
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-mongo";
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/project-auth";
 mongoose.connect(mongoUrl);
 mongoose.Promise = Promise;
 
