@@ -43,20 +43,46 @@ app.get("/", (req, res) => {
 
 
 // Register new user
-app.post("/register", (req, res) => {
-  try{
-    const {name, phone, password} = req.body
-    const salt = bcrypt.genSaltSync()
-    const user = new User ({name, phone, password: bcrypt.hashSync(password, salt)}).save()
+// app.post("/register", (req, res) => {
+//   try{
+//     const {name, phone, password} = req.body
+//     const salt = bcrypt.genSaltSync()
+//     const user = new User ({name, phone, password: bcrypt.hashSync(password, salt)}).save()
 
-    res.status(201).send(user)
-  } catch(err) {
-    res.status(400).json({
-      message: 'Could not create user',
-      errors: err.errors
-    })
+//     res.status(201).send(user)
+//   } catch(err) {
+//     res.status(400).json({
+//       message: 'Could not create user',
+//       errors: err.errors
+//     })
+//   }
+// })
+app.post("/register", async (req, res) => {
+  const { name, email, phone, password } = req.body;
+
+  try {
+    const hashedPassword = bcrypt.hashSync(password, 10); // Using 10 rounds by default
+    const newUser = new User({ name, email, phone, password: hashedPassword });
+    await newUser.save();
+    res
+      .status(201)
+      .json({ message: "User successfully registered", userId: newUser._id });
+  } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyPattern)[0];
+      res.status(400).json({
+        message: `An account with that ${field} already exists.`,
+        field,
+      });
+    } else {
+      res.status(400).json({
+        message: "Could not create user. Please check the data provided.",
+        errors: err.errors,
+      });
+    }
   }
-})
+});
+
 
 // Login
 app.post("/login", async (req, res) => {
