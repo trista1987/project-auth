@@ -1,8 +1,12 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Login } from "./Pages/Login";
 import { Signup } from "./Pages/Signup";
 import { NavBar } from "./Pages/NavBar";
 import { HomePage } from "./Pages/HomePage";
+
+const checkAuth = () => {
+  return localStorage.getItem("Net-Token") != null;
+};
 
 export const App = () => {
   return (
@@ -11,8 +15,14 @@ export const App = () => {
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/login"
+            element={checkAuth() ? <Navigate replace to="/" /> : <Login />}
+          />
+          <Route
+            path="/signup"
+            element={checkAuth() ? <Navigate replace to="/" /> : <Signup />}
+          />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,19 +1,19 @@
 .navbar-wrapper {
-  background-color: #ffffff; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: "Poppins", sans-serif;
   display: flex;
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 0 20px; 
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
   height: 60px;
 }
 
 .navbar-logo {
   font-size: 24px;
   font-weight: bold;
-  color: #fa7268; 
-  cursor: pointer; 
+  color: #fa7268;
+  cursor: pointer;
 }
 
 ul {
@@ -43,3 +43,15 @@ ul {
 .nav-links li:last-child {
   margin-right: 0;
 }
+
+.logout-btn {
+  width: 90px;
+  padding: 10px;
+  background-color: #ffd935;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin:0;
+}
+

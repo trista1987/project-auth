@@ -41,11 +41,11 @@ export const Login = () => {
  };
 
 useEffect(() => {
-  const token = localStorage.getItem("Net-Token");
-  if (token) {
+  if (localStorage.getItem("Net-Token")) {
     navigate("/");
   }
 }, [navigate]);
+
 
   return (
     <>

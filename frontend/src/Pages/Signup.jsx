@@ -44,7 +44,7 @@ export const Signup = () => {
         throw new Error("Failed to register");
       }
 
-      const data = await response.json(); 
+      const data = await response.json();
       console.log("Registration successful:", data);
       navigate("/"); // Redirect to login page after successful registration
     } catch (error) {
@@ -53,12 +53,11 @@ export const Signup = () => {
     }
   };
 
-useEffect(() => {
-  const token = localStorage.getItem("Net-Token");
-  if (token) {
-    navigate("/");
-  }
-}, [navigate]);
+  useEffect(() => {
+    if (localStorage.getItem("Net-Token")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <>
