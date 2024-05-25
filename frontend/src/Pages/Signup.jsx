@@ -29,13 +29,16 @@ export const Signup = () => {
 
     try {
       //Replace api link
-      const response = await fetch("https://your-api-url.com/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
+      const response = await fetch(
+        "https://project-auth-5en1.onrender.com/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to register");
@@ -43,7 +46,7 @@ export const Signup = () => {
 
       const data = await response.json(); 
       console.log("Registration successful:", data);
-      navigate("/login"); // Redirect to login page after successful registration
+      navigate("/"); // Redirect to login page after successful registration
     } catch (error) {
       console.error("Registration error:", error);
       alert("Registration failed: " + error.message);
@@ -60,7 +63,7 @@ export const Signup = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="signup-wrapper">
-        <img src="/public/signup.png" className="signup-icon" alt="Sign Up" />
+        <img src="/signup.png" className="signup-icon" alt="Sign Up" />
         <h2>Sign Up</h2>
         <div>
           <label htmlFor="name">Name：</label>

@@ -16,13 +16,16 @@ export const Login = () => {
 
    try {
      // Replace API endpoint
-     const response = await fetch("https://your-api-url.com/login", {
-       method: "POST",
-       headers: {
-         "Content-Type": "application/json",
-       },
-       body: JSON.stringify(userInfo),
-     });
+     const response = await fetch(
+       "https://project-auth-5en1.onrender.com/login",
+       {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify(userInfo),
+       }
+     );
 
      if (!response.ok) {
        throw new Error("Failed to login");
@@ -46,7 +49,7 @@ export const Login = () => {
   return (
     <>
       <form onSubmit={handleSubmit} className="login-form">
-        <img src="/public/login.png" className="login-icon" alt="Login Icon" />
+        <img src="/login.png" className="login-icon" alt="Login Icon" />
         <h2>Login</h2>
         <div>
           <label htmlFor="email">Account：</label>
