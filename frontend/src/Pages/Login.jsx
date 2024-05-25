@@ -52,7 +52,7 @@ export const Login = () => {
         <img src="/login.png" className="login-icon" alt="Login Icon" />
         <h2>Login</h2>
         <div>
-          <label htmlFor="email">Account：</label>
+          <label htmlFor="email">Email：</label>
           <input
             type="email"
             id="email"

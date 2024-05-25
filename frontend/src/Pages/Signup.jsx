@@ -12,23 +12,14 @@ export const Signup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    // Create user object based on input
     const newUser = {
-      name: name,
-      email: email,
-      phone: phone,
-      password: password,
+      name,
+      email,
+      phone,
+      password,
     };
 
     try {
-      //Replace api link
       const response = await fetch(
         "https://project-auth-5en1.onrender.com/register",
         {
@@ -41,12 +32,13 @@ export const Signup = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to register");
+        const errorData = await response.json(); // Assuming the server sends back a JSON error message
+        throw new Error(errorData.message || "Failed to register");
       }
 
       const data = await response.json();
       console.log("Registration successful:", data);
-      navigate("/"); // Redirect to login page after successful registration
+      navigate("/");
     } catch (error) {
       console.error("Registration error:", error);
       alert("Registration failed: " + error.message);

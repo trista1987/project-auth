@@ -22,6 +22,10 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
+  token: {
+    type: String,
+    default: () => bcrypt.genSaltSync(),
+  },
 });
 
 const User = model("User", userSchema);
@@ -29,6 +33,7 @@ const User = model("User", userSchema);
 const port = process.env.PORT || 8080;
 const app = express();
 
+// Add middlewares to enable cors and json body parsing
 app.use(cors());
 app.use(express.json());
 
@@ -36,25 +41,22 @@ app.get("/", (req, res) => {
   res.send("Hello Technigo!");
 });
 
-// Register new user
-app.post("/register", async (req, res) => {
-  const { name, phone, password } = req.body;
 
-  try {
-    const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    const newUser = new User({ name, phone, password: hashedPassword });
-    await newUser.save();
-    res
-      .status(201)
-      .json({ message: "User successfully registered", userId: newUser._id });
-  } catch (err) {
+// Register new user
+app.post("/register", (req, res) => {
+  try{
+    const {name, phone, password} = req.body
+    const salt = bcrypt.genSaltSync()
+    const user = new User ({name, phone, password: bcrypt.hashSync(password, salt)}).save()
+
+    res.status(201).send(user)
+  } catch(err) {
     res.status(400).json({
-      message: "Could not create user. Please check the data provided.",
-      errors: err.errors,
-    });
+      message: 'Could not create user',
+      errors: err.errors
+    })
   }
-});
+})
 
 // Login
 app.post("/login", async (req, res) => {
