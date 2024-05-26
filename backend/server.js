@@ -64,7 +64,9 @@ app.post("/register", async (req, res) => {
       password: bcrypt.hashSync(password, salt),
     });
     user.save();
-    res.status(201).send(`UserID ${user._id} successfully created!`);
+    res
+      .status(201)
+      .json({ message: `UserID ${user._id} successfully created!` });
   } catch (err) {
     res.status(400).json({
       message: "Could not create user.",
