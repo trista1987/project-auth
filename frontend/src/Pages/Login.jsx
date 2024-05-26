@@ -7,7 +7,7 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const userInfo = {
       email,
@@ -32,7 +32,7 @@ export const Login = () => {
         throw new Error(data.message || "An error occurred while logging in.");
       }
 
-      localStorage.setItem("Net-Token", data.token);
+      data.token && localStorage.setItem("Net-Token", data.token);
       navigate("/");
     } catch (error) {
       console.error("Login error:", error);
@@ -48,8 +48,14 @@ export const Login = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="login-form">
-        <img src="/login.png" className="login-icon" alt="Login Icon" />
+      <form
+        onSubmit={handleSubmit}
+        className="login-form">
+        <img
+          src="/login.png"
+          className="login-icon"
+          alt="Login Icon"
+        />
         <h2>Login</h2>
         <div>
           <label htmlFor="email">Email：</label>
@@ -57,8 +63,10 @@ export const Login = () => {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
+            placeholder="name@domain.com"
+            autoComplete="email"
           />
         </div>
         <div>
@@ -67,7 +75,9 @@ export const Login = () => {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Type your password"
+            autoComplete="current-password"
             required
           />
         </div>
